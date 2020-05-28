@@ -1,4 +1,3 @@
 (sym_lib_table
-  (lib (name Cartridge-rescue)(type Legacy)(uri ${KIPRJMOD}/Cartridge-rescue.lib)(options "")(descr ""))
   (lib (name AT28C256)(type Legacy)(uri ${KIPRJMOD}/lib/AT28C256.lib)(options "")(descr ""))
 )
