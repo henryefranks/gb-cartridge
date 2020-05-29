@@ -95,7 +95,7 @@ void setup() {
   // Setup pins
   for (int pin = 2; pin < 13; pin++)
     pinMode(pin, OUTPUT);
-  
+
   pinMode(OE, OUTPUT);
   pinMode(WE, OUTPUT);
   pinMode(CLK, OUTPUT);
