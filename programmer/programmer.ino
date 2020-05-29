@@ -38,8 +38,8 @@ void loadData(uint16_t address, uint8_t data) {
     digitalWrite(12-i, address & (1 << i));
   }
 
-  char buf[9];
-  sprintf(buf, "%04x: %02x", address, data);
+  char buf[8];
+  sprintf(buf, "%04x:%02x", address, data);
 
   uint8_t addr = address >> 7;
 
@@ -80,8 +80,8 @@ uint8_t readbyte(uint16_t address) {
   while (!Serial.available());
   c = uint8_t(Serial.read());
 
-  char buf[9];
-  sprintf(buf, "%04x: %02x", address, c);
+  char buf[8];
+  sprintf(buf, "%04x:%02x", address, c);
 
   Serial.print("LOAD <");
   Serial.print(buf);

@@ -6,8 +6,6 @@
 ################################################################################
 # IMPORTS
 
-# TODO: ADD SYN/SYNACK/ACK
-
 import argparse
 from arduino import Arduino
 from sys import exit
