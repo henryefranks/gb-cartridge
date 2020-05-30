@@ -14,7 +14,7 @@ from time import sleep
 ################################################################################
 # ARGUMENT PARSING
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="Send ROM to Arduino")
 
 parser.add_argument("-p", "--path", type=str,
                     help="path to ROM file")
