@@ -27,3 +27,7 @@ fp-info-cache
 
 # Ignore Python
 __pycache__/
+
+# Ignore GB linker/compiler files
+**/*.obj
+**/*.gb
