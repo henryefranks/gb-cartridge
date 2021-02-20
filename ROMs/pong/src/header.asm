@@ -1,7 +1,6 @@
-; +-------------------------------+
-; | header.asm - cartridge header |
-; +-------------------------------+
-	
+; HEADER.ASM
+; cartridge header data
+
 SECTION	"Org $00",ROM0[$00]
 	jp $100
 

@@ -1,19 +1,18 @@
-; +--------------------------------------------+
-; | sprites.asm - sprite setup and subroutines |
-; +--------------------------------------------+
-	
-INCLUDE "hardware.asm"	
-	
-CENTRE EQU $54		;to help align positioning
-	
-; --- RAM vars ---
-	
-MOVE_DIR EQU _RAM+1
-DELAY_FRAMES EQU _RAM+2	
+; SPRITES.ASM
+; sprite setup and subroutines
 
-	
+INCLUDE "hardware.asm"
+
+CENTRE EQU $54		;to help align positioning
+
+; --- RAM vars ---
+
+MOVE_DIR EQU _RAM+1
+DELAY_FRAMES EQU _RAM+2
+
+
 ; --- OAM vars ---
-	
+
 ;; start text
 S1_Y EQU _OAMRAM
 S1_X EQU _OAMRAM+1
@@ -33,13 +32,13 @@ S3_FLAGS EQU _OAMRAM+11
 S4_Y EQU _OAMRAM+12
 S4_X EQU _OAMRAM+13
 S4_TILE EQU _OAMRAM+14
-S4_FLAGS EQU _OAMRAM+15	
+S4_FLAGS EQU _OAMRAM+15
 
 S5_Y EQU _OAMRAM+16
 S5_X EQU _OAMRAM+17
 S5_TILE EQU _OAMRAM+18
-S5_FLAGS EQU _OAMRAM+19	
-	
+S5_FLAGS EQU _OAMRAM+19
+
 ;; ball sprite
 BALL_Y EQU _OAMRAM+20
 BALL_X EQU _OAMRAM+21
@@ -63,7 +62,7 @@ P_21_Y EQU _OAMRAM+32
 P_21_X EQU _OAMRAM+33
 P_21_TILE EQU _OAMRAM+34
 P_21_FLAGS EQU _OAMRAM+35
-	
+
 ;; player 2 bottom sprite
 P_22_Y EQU _OAMRAM+36
 P_22_X EQU _OAMRAM+37
@@ -74,15 +73,15 @@ P_22_FLAGS EQU _OAMRAM+39
 P1_S_Y EQU _OAMRAM+40
 P1_S_X EQU _OAMRAM+41
 P1_S_TILE EQU _OAMRAM+42
-P1_S_FLAGS EQU _OAMRAM+43	
+P1_S_FLAGS EQU _OAMRAM+43
 
 ;; player 2 score
 P2_S_Y EQU _OAMRAM+44
 P2_S_X EQU _OAMRAM+45
 P2_S_TILE EQU _OAMRAM+46
 P2_S_FLAGS EQU _OAMRAM+47
-	
-	
+
+
 ; --- subroutines ---
 
 WAIT_VBLANK:
@@ -130,7 +129,7 @@ HIDE_START:
 	call WAIT_VBLANK
 	ld hl,S1_Y
 	ld c,$14
-.hide_loop:	
+.hide_loop:
 	ld [hl],0
 	inc hl
 	dec c
@@ -163,7 +162,7 @@ SPAWN_P1:
 	ld [P_12_FLAGS],a
 	ret
 
-SPAWN_P2:	
+SPAWN_P2:
 	ld a,$9D
 	ld [P_21_X],a
 	ld [P_22_X],a
@@ -178,7 +177,7 @@ SPAWN_P2:
 	ld [P_21_FLAGS],a
 	ld [P_22_FLAGS],a
 	ret
-	
+
 PADDLE_1_UP:
 	ld a,[P_11_Y]
 	cp 16
@@ -188,7 +187,7 @@ PADDLE_1_UP:
 	sub 8
 	ld [P_12_Y],a
 	ret
-	
+
 PADDLE_1_DOWN:
 	ld a,[P_11_Y]
 	cp 160
@@ -209,7 +208,7 @@ PADDLE_2_UP:
 	dec a
 	ld [P_22_Y],a
 	ret
-	
+
 PADDLE_2_DOWN:
 	ld a,[P_21_Y]
 	cp 160
@@ -241,7 +240,7 @@ BALL_R:
 	inc a
 	ld [BALL_X],a
 	ret
-	
+
 BALL_L:
 	ld a,[BALL_X]
 	cp 4
@@ -369,7 +368,7 @@ RESET_BALL_L:
 	inc a
 	ld [P2_S_TILE],a
 	jp RESET_BALL
-	
+
 RESET_BALL:
 	ld a,CENTRE
 	ld [BALL_X],a

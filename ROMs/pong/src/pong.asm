@@ -1,11 +1,12 @@
-; +----------------------+
-; | pong.asm - main code |
-; +----------------------+
+; PONG.ASM
+; main code
 
 ; --- Includes ---
 INCLUDE "hardware.asm"
 INCLUDE "header.asm"
 INCLUDE "tiles.asm"
+INCLUDE "graphics.asm"
+INCLUDE "sound.asm"
 INCLUDE "sprites.asm"
 
 ; --- Program Start ---
@@ -62,62 +63,11 @@ START:
 
 ; --- Subroutines ---
 
-CLEAR_OAM:
-	;; clearing the OAM RAM
-	ld hl,_OAMRAM		;load OAM address ($FE00)
-	ld c,$A0			;counter
-.clear_OAM_loop:
-	ld [hl],0
-	inc hl
-	dec c
-	jp nz,.clear_OAM_loop
-	ret
-
 WAIT_START:
 	call GET_INPUT
 	ld a,[LAST_INPUT]
 	and START_MASK
 	jr z,WAIT_START
-	ret
-
-CLEAR_MAP:
-	ld hl,_SCRN0		;load bg map address ($9800)
-	ld bc,32*32			;16 bit counter
-.clear_map_loop:
-	ld a,0
-	ld [hl+],a
-	dec bc
-	ld a,b
-	or c
-	jr nz,.clear_map_loop
-	ret
-
-LOAD_TILES:
-	ld hl,TILES
-	ld de,_VRAM
-	ld bc,23*16
-.load_tiles_loop:
-	ld a,[hl+]
-	ld [de],a
-	inc de
-	dec bc
-	ld a,b
-	or c
-	jr nz,.load_tiles_loop
-	ret
-
-LOAD_MAP:
-	ld bc,40*4
-	ld l,0
-	ld hl,TITLE_MAP
-	ld de,_SCRN0
-	ld c,16				;counter
-.load_map_loop:
-	ld a,[hl+]
-	ld [de],a
-	inc de
-	dec c
-	jr nz,.load_map_loop
 	ret
 
 UPDATE:
@@ -210,18 +160,3 @@ GAME_END:
 	call HIDE_START
 
 	jp UPDATE
-
-INIT_SOUND:
-	ld a, %10000000
-	ld [rNR52], a
-	ld a, %01110111
-	ld [rNR50], a
-	ld a, %00000010
-	ld [rNR51], a
-	ld a, %10111111
-	ld [rNR21], a
-	ld a, %11110111
-	ld [rNR22], a
-	ld a, %01000110
-	ld [rNR24], a
-	ret

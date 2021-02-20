@@ -1,6 +1,5 @@
-; +-------------------------------+
-; | tiles.asm - tile and map data |
-; +-------------------------------+
+; TILES.ASM
+; tile and map data
 
 SECTION "Tiles",ROM0
 

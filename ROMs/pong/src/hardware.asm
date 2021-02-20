@@ -1,9 +1,9 @@
-; +---------------------------------------------+
-; | hardware.asm - GameBoy hardware definitions |
-; +---------------------------------------------+
-; | Based on Jones' hardware.inc                |
-; | And based on Carsten Sorensen's ideas.      |
-; +---------------------------------------------+
+; HARDWARE.ASM
+; Game Boy hardware definitions
+;
+; Based on Jones' hardware.inc
+; And based on Carsten Sorensen's ideas.
+
 ; --- Preliminary checks ---
 
         IF      !DEF(HARDWARE_INC)

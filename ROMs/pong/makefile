@@ -1,5 +1,5 @@
 all:
-	rgbasm -o pong.obj pong.asm
-	rgblink -o pong.gb pong.obj
-	rm pong.obj
-	rgbfix -p0 -v pong.gb
+	rgbasm -o build/pong.obj src/pong.asm
+	rgblink -o build/pong.gb build/pong.obj
+	rm build/pong.obj
+	rgbfix -p0 -v build/pong.gb

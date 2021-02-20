@@ -1,7 +1,6 @@
 @echo off
 
-rgbasm -o pong.obj pong.asm
-rgblink -o pong.gb pong.obj
-del pong.obj
-rgbfix -p0 -v pong.gb
-bgb pong.gb
+rgbasm -o build/pong.obj src/pong.asm -i src
+rgblink -o build/pong.gb build/pong.obj
+rgbfix -p0 -v build/pong.gb
+bgb build/pong.gb
