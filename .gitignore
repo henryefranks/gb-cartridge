@@ -31,3 +31,6 @@ __pycache__/
 # Ignore GB linker/compiler files
 **/*.obj
 **/*.gb
+
+# vscode
+.vscode
