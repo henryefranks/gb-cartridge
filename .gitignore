@@ -25,12 +25,11 @@ fp-info-cache
 *.xml
 *.csv
 
-# Ignore Python
+# Python
 __pycache__/
 
-# Ignore GB linker/compiler files
-**/*.obj
-**/*.gb
+# ROM build folders
+ROMs/**/build
 
-# vscode
+# VSCode config
 .vscode
