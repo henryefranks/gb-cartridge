@@ -2,9 +2,10 @@
 ; audio subroutines
 
 INCLUDE "hardware.asm"
+INCLUDE "ramvars.asm"
 
 SECTION "Sound",ROM0
-INIT_SOUND:
+INIT_SOUND::
   ld a, %10000000
   ld [rNR52], a
   ld a, %01110111
@@ -19,7 +20,7 @@ INIT_SOUND:
   ld [rNR24], a
   ret
 
-SOUND_POINT:
+SOUND_POINT::
   ld a,%10000001
   ld [rNR42],a
   ld a,%10001010
@@ -31,7 +32,7 @@ SOUND_POINT:
   ld [rNR44],a
   ret
 
-SOUND_PADDLE:
+SOUND_PADDLE::
   ld a,%10000001
   ld [rNR42],a
   ld a,%00101010
@@ -43,7 +44,7 @@ SOUND_PADDLE:
   ld [rNR44],a
   ret
 
-SOUND_EDGE:
+SOUND_EDGE::
   ld a,%10000001
   ld [rNR42],a
   ld a,%00111010
@@ -55,7 +56,7 @@ SOUND_EDGE:
   ld [rNR44],a
   ret
 
-SOUND_WIN:
+SOUND_WIN::
   ld a,%10000111
   ld [rNR42],a
   ld a,%01111011

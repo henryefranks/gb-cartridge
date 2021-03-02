@@ -2,95 +2,19 @@
 ; sprite setup and subroutines
 
 INCLUDE "hardware.asm"
-
-CENTRE EQU $54		;to help align positioning
-
-; --- RAM vars ---
-
-MOVE_DIR EQU _RAM+1
-DELAY_FRAMES EQU _RAM+2
-
-
-; --- OAM vars ---
-
-;; start text
-S1_Y EQU _OAMRAM
-S1_X EQU _OAMRAM+1
-S1_TILE EQU _OAMRAM+2
-S1_FLAGS EQU _OAMRAM+3
-
-S2_Y EQU _OAMRAM+4
-S2_X EQU _OAMRAM+5
-S2_TILE EQU _OAMRAM+6
-S2_FLAGS EQU _OAMRAM+7
-
-S3_Y EQU _OAMRAM+8
-S3_X EQU _OAMRAM+9
-S3_TILE EQU _OAMRAM+10
-S3_FLAGS EQU _OAMRAM+11
-
-S4_Y EQU _OAMRAM+12
-S4_X EQU _OAMRAM+13
-S4_TILE EQU _OAMRAM+14
-S4_FLAGS EQU _OAMRAM+15
-
-S5_Y EQU _OAMRAM+16
-S5_X EQU _OAMRAM+17
-S5_TILE EQU _OAMRAM+18
-S5_FLAGS EQU _OAMRAM+19
-
-;; ball sprite
-BALL_Y EQU _OAMRAM+20
-BALL_X EQU _OAMRAM+21
-BALL_TILE EQU _OAMRAM+22
-BALL_FLAGS EQU _OAMRAM+23
-
-;; player 1 top sprite
-P_11_Y EQU _OAMRAM+24
-P_11_X EQU _OAMRAM+25
-P_11_TILE EQU _OAMRAM+26
-P_11_FLAGS EQU _OAMRAM+27
-
-;; player 1 bottom sprite
-P_12_Y EQU _OAMRAM+28
-P_12_X EQU _OAMRAM+29
-P_12_TILE EQU _OAMRAM+30
-P_12_FLAGS EQU _OAMRAM+31
-
-;; player 2 top sprite
-P_21_Y EQU _OAMRAM+32
-P_21_X EQU _OAMRAM+33
-P_21_TILE EQU _OAMRAM+34
-P_21_FLAGS EQU _OAMRAM+35
-
-;; player 2 bottom sprite
-P_22_Y EQU _OAMRAM+36
-P_22_X EQU _OAMRAM+37
-P_22_TILE EQU _OAMRAM+38
-P_22_FLAGS EQU _OAMRAM+39
-
-;; player 1 score
-P1_S_Y EQU _OAMRAM+40
-P1_S_X EQU _OAMRAM+41
-P1_S_TILE EQU _OAMRAM+42
-P1_S_FLAGS EQU _OAMRAM+43
-
-;; player 2 score
-P2_S_Y EQU _OAMRAM+44
-P2_S_X EQU _OAMRAM+45
-P2_S_TILE EQU _OAMRAM+46
-P2_S_FLAGS EQU _OAMRAM+47
-
+INCLUDE "ramvars.asm"
 
 ; --- subroutines ---
 
-WAIT_VBLANK:
+SECTION "Sprites",ROM0
+
+WAIT_VBLANK::
   ldh a,[rLY]		;get current scanline
   cp $91			;check if v-blank
   jr nz,WAIT_VBLANK
   ret
 
-SHOW_START:
+SHOW_START::
   ld a,$40
   ld [S1_Y],a
   ld [S2_Y],a
@@ -125,7 +49,7 @@ SHOW_START:
   ld [S5_FLAGS],a
   ret
 
-HIDE_START:
+HIDE_START::
   call WAIT_VBLANK
   ld hl,S1_Y
   ld c,$14
@@ -136,7 +60,7 @@ HIDE_START:
   jp nz,.hide_loop
   ret
 
-SPAWN_BALL:
+SPAWN_BALL::
   ld a,CENTRE
   ld [BALL_Y],a
   ld [BALL_X],a
@@ -146,7 +70,7 @@ SPAWN_BALL:
   ld [BALL_FLAGS],a
   ret
 
-SPAWN_P1:
+SPAWN_P1::
   ld a,$B
   ld [P_11_X],a
   ld [P_12_X],a
@@ -162,7 +86,7 @@ SPAWN_P1:
   ld [P_12_FLAGS],a
   ret
 
-SPAWN_P2:
+SPAWN_P2::
   ld a,$9D
   ld [P_21_X],a
   ld [P_22_X],a
@@ -178,7 +102,7 @@ SPAWN_P2:
   ld [P_22_FLAGS],a
   ret
 
-PADDLE_1_UP:
+PADDLE_1_UP::
   ld a,[P_11_Y]
   cp 16
   ret z
@@ -188,7 +112,7 @@ PADDLE_1_UP:
   ld [P_12_Y],a
   ret
 
-PADDLE_1_DOWN:
+PADDLE_1_DOWN::
   ld a,[P_11_Y]
   cp 160
   ret z
@@ -198,7 +122,7 @@ PADDLE_1_DOWN:
   ld [P_12_Y],a
   ret
 
-PADDLE_2_UP:
+PADDLE_2_UP::
   ld a,[P_21_Y]
   cp 16
   ret z
@@ -209,7 +133,7 @@ PADDLE_2_UP:
   ld [P_22_Y],a
   ret
 
-PADDLE_2_DOWN:
+PADDLE_2_DOWN::
   ld a,[P_21_Y]
   cp 160
   ret z
@@ -220,7 +144,7 @@ PADDLE_2_DOWN:
   ld [P_22_Y],a
   ret
 
-MOVE_BALL:
+MOVE_BALL::
   ld a,[MOVE_DIR]
   and $80
   call nz,BALL_R
@@ -233,7 +157,7 @@ MOVE_BALL:
   call nz,BALL_D
   ret
 
-BALL_R:
+BALL_R::
   ld a,[BALL_X]
   cp 164
   jp z,RESET_BALL_R
@@ -241,7 +165,7 @@ BALL_R:
   ld [BALL_X],a
   ret
 
-BALL_L:
+BALL_L::
   ld a,[BALL_X]
   cp 4
   jp z,RESET_BALL_L
@@ -249,7 +173,7 @@ BALL_L:
   ld [BALL_X],a
   ret
 
-BALL_U:
+BALL_U::
   ld a,[BALL_Y]
   cp 20
   jp z,BALL_TOP
@@ -257,7 +181,7 @@ BALL_U:
   ld [BALL_Y],a
   ret
 
-BALL_D:
+BALL_D::
   ld a,[BALL_Y]
   cp 155
   jp z,BALL_BOTTOM
@@ -265,35 +189,35 @@ BALL_D:
   ld [BALL_Y],a
   ret
 
-BALL_TOP:
+BALL_TOP::
   call SOUND_EDGE
   jp MOVE_BALL_DOWN
 
-BALL_BOTTOM:
+BALL_BOTTOM::
   call SOUND_EDGE
   jp MOVE_BALL_UP
 
-MOVE_BALL_UP:
+MOVE_BALL_UP::
   ld a,[MOVE_DIR]
   and $80
   or $40
   ld [MOVE_DIR],a
   ret
 
-MOVE_BALL_DOWN:
+MOVE_BALL_DOWN::
   ld a,[MOVE_DIR]
   and $80
   or $20
   ld [MOVE_DIR],a
   ret
 
-MOVE_BALL_STRAIGHT:
+MOVE_BALL_STRAIGHT::
   ld a,[MOVE_DIR]
   and $80
   ld [MOVE_DIR],a
   ret
 
-DETECT_HIT:
+DETECT_HIT::
   ld a,[P_11_X]
   ld b,a
   ld a,[P_21_X]
@@ -381,7 +305,7 @@ RESET_BALL:
   call SOUND_POINT
   ret
 
-LOAD_SCORES:
+LOAD_SCORES::
   ld a,$0C
   ld [P1_S_TILE],a
   ld [P2_S_TILE],a
@@ -397,7 +321,7 @@ LOAD_SCORES:
   ld [P2_S_FLAGS],a
   ret
 
-MOVE_PADDLE_1:
+MOVE_PADDLE_1::
   ld a,[LAST_INPUT]
   and UP_MASK
   jp nz,PADDLE_1_UP
@@ -406,7 +330,7 @@ MOVE_PADDLE_1:
   jp nz,PADDLE_1_DOWN
   ret
 
-MOVE_PADDLE_2:
+MOVE_PADDLE_2::
   ld a,[LAST_INPUT]
   and A_MASK
   jp nz,PADDLE_2_UP

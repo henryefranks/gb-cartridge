@@ -2,8 +2,11 @@
 ; graphics subroutines
 
 INCLUDE "hardware.asm"
+INCLUDE "ramvars.asm"
 
-CLEAR_OAM:
+SECTION "Graphics",ROM0
+
+CLEAR_OAM::
   ;; clearing the OAM RAM
   ld hl,_OAMRAM		;load OAM address ($FE00)
   ld c,$A0			;counter
@@ -14,7 +17,7 @@ CLEAR_OAM:
   jp nz,.clear_OAM_loop
   ret
 
-CLEAR_MAP:
+CLEAR_MAP::
   ld hl,_SCRN0		;load bg map address ($9800)
   ld bc,32*32			;16 bit counter
 .clear_map_loop:
@@ -26,7 +29,7 @@ CLEAR_MAP:
   jr nz,.clear_map_loop
   ret
 
-LOAD_TILES:
+LOAD_TILES::
   ld hl,TILES
   ld de,_VRAM
   ld bc,23*16
@@ -40,7 +43,7 @@ LOAD_TILES:
   jr nz,.load_tiles_loop
   ret
 
-LOAD_MAP:
+LOAD_MAP::
   ld bc,40*4
   ld l,0
   ld hl,TITLE_MAP

@@ -1,21 +1,12 @@
 ; PONG.ASM
 ; main code
 
-; --- Includes ---
 INCLUDE "hardware.asm"
-INCLUDE "header.asm"
-INCLUDE "tiles.asm"
-INCLUDE "graphics.asm"
-INCLUDE "sound.asm"
-INCLUDE "input.asm"
-INCLUDE "sprites.asm"
-
-; --- RAM vars ---
-LAST_INPUT EQU _RAM
+INCLUDE "ramvars.asm"
 
 ; --- Program Start ---
 SECTION "Program Start",ROM0[$0150]
-START:
+START::
   di		  		               ; disable interrupts
   ld sp,$FFFE			           ; set the stack to $FFFE
   call WAIT_VBLANK
