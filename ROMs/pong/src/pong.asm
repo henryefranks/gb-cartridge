@@ -48,7 +48,6 @@ START:
   ld [MOVE_DIR],a
 
   call HIDE_START
-  call UPDATE
 
 ; --- Subroutines ---
 

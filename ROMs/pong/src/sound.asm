@@ -3,6 +3,7 @@
 
 INCLUDE "hardware.asm"
 
+SECTION "Sound",ROM0
 INIT_SOUND:
   ld a, %10000000
   ld [rNR52], a
