@@ -38,7 +38,7 @@ emu: fix
 fix: build
 	$(FIX) -p0 -v $(GB)
 
-# TODO: currently I can't find a way to get directory
+# TODO: I currently can't find a way to get directory
 #       creation to play nice on windows
 #       for now just create it manually if it doesn't exist
 
