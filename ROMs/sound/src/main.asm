@@ -9,10 +9,13 @@ START::
 
   call INIT_SOUND
 
+  call SOUND_3
+.loop
+  nop
+  jp .loop
+
 UPDATE:
-  call SOUND_1
-  call DELAY
-  call SOUND_2
+  call SOUND_3
   call DELAY
   jp UPDATE
 
@@ -26,6 +29,7 @@ ld c, $03
   dec b
   dec a
   jr nz, .delay
+  dec a
   dec c
   jr nz, .delay
   ret
