@@ -23,7 +23,7 @@ def c(x):
 
 def f(x):
     x_f = itof(x)
-    X = 2 * ((2 * (2 * x_f)) % 2 - 1)
+    X = s(x_f)
     return scale(0.5 * (1 + X))
 
 

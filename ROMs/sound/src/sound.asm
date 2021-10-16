@@ -121,7 +121,7 @@ SOUND_3_HL::
   
 
 Section "Waveform RAM", ROM0[WAVERAM]
-  dl $FFFFEFBD, $DBFEFFFF, $00001042, $24010000
+  dl $FFEDCA98, $8ABCDEFF, $001234567, $76532100
 
 Section "CH3 Data", ROM0[SOUNDROM]
   ; CH3 data structure
