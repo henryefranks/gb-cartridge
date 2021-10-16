@@ -13,24 +13,26 @@ INIT_SOUND::
   ld a, %10000000
   ld [$FF26], a
 
-  ; BEGIN WAVEFORM RAM
+  ret
 
+LOAD_WAVEFORM_RAM::
   ; make sure CH3 is disabled before we load data
   ld a, $00
   ld [$FF1A], a
 
   ld hl, WAVERAM
 
-  ld d, $FF
-  ld e, $30
+  ld de, $FF30
 
-REPT $10
-  ld a, [hli]
-  ld [de], a
-  inc e
-ENDR
+  REPT $10
+    ld a, [hli]
+    ld [de], a
+    inc e
+  ENDR
 
-  ; END WAVEFORM RAM
+  ; re-enable CH3
+  ld a, $80
+  ld [$FF1A], a
 
   ret
 
@@ -85,19 +87,61 @@ SOUND_3::
 
   ret
 
-Section "Waveform RAM", ROM0[WAVERAM]
-  dl $64200000, $FFFFECA8, $75310000, $0FFFFDB9
+SOUND_3_INIT::
+  ld a, %10000000
+  ld [$FF1A], a
+  ld a, %00100000
+  ld [$FF1C], a
 
-Section "CH3 Data", ROM0
+  call LOAD_WAVEFORM_RAM
+  
+  ret
+
+SOUND_3_HL::
+  ; take address in (hl) and play sound
+  ; corresponding to data stored in hl and hl+1
+  ;
+  ; leaves (hl) pointing to next table entry
+  ; i.e. hl+3
+
+  ld a, [hli]
+  ld [$FF1B], a
+  ld a, [hli]
+  ld [$FF1D], a
+  ld a, [hli]
+  or $C0
+  ld [$FF1E], a
+  ret
+  
+
+Section "Waveform RAM", ROM0[WAVERAM]
+  dl $FFFFEFBD, $DBFEFFFF, $00001042, $24010000
+
+Section "CH3 Data", ROM0[SOUNDROM]
   ; CH3 data structure
   ; length - 8b
-  ; frequency - 11b (lsb of 16b space)
-  db $00
-  dw %11000000000
+  ; frequency - 11b (lsb of 16b word)
+  db $70
+  dw $0706
 
-  db $00
-  dw %11000001000
+  db $70
+  dw $0721
 
-  db $00
-  dw %11000010000
+  db $73
+  dw $0739
+
+  db $70
+  dw $0744
+
+  db $70
+  dw $0759
+
+  db $70
+  dw $0768
+
+  db $70
+  dw $0778
+
+  db $70
+  dw $0783
 
