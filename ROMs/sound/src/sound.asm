@@ -97,6 +97,12 @@ SOUND_3_INIT::
   
   ret
 
+WAIT_FOR_CH3_FREE::
+  ld a, [$FF26]
+  and $04
+  jp nz, WAIT_FOR_CH3_FREE
+  ret
+
 SOUND_3_HL::
   ; take address in (hl) and play sound
   ; corresponding to data stored in hl and hl+1
