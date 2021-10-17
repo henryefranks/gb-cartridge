@@ -1,11 +1,3 @@
-# Pong
+# Sound Demo
 
-## Controls
-
-### Player 1
-- **Up:** up (d-pad)
-- **Down:** down (d-pad)
-
-### Player 2
-- **Up:** A
-- **Down:** B
+Demonstration ROM for testing the system's sound capabilities.
