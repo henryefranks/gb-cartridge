@@ -31,5 +31,8 @@ __pycache__/
 # ROM build folders
 ROMs/**/build
 
+# Compiled Binaries
+*.gb
+
 # VSCode config
 .vscode
