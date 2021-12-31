@@ -5,4 +5,13 @@ D 256K (32K x 8) paged parallel EEPROM
 F http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf
 $ENDCMP
 #
+$CMP C
+F ~
+$ENDCMP
+#
+$CMP Pak_Connector
+D 32 pin Game Boy pak header
+F ~
+$ENDCMP
+#
 #End Doc Library
