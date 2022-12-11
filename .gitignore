@@ -37,3 +37,7 @@ ROMs/**/build
 
 # VSCode config
 .vscode
+
+# macOS
+.DS_Store
+
